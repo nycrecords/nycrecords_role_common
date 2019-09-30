@@ -15,8 +15,8 @@ provisioner:
   lint:
     name: ansible-lint
   inventory:
-    host_vars: 
-      instance: 
+    host_vars:
+      instance:
         http_proxy_protocol: http
         http_proxy_hostname: bcpxy.nycnet
         http_proxy_port: 8080

@@ -1,7 +1,7 @@
 ---
 # defaults file for nycrecords_role_common
 rhsub_system_name: "nycrecords_common_{{ '%Y-%m-%d %H:%M:%S' | strftime(ansible_date_time.epoch) }}"
-rhsub_username: 
+rhsub_username:
 rhsub_password:
 
 http_proxy_protocol: http
