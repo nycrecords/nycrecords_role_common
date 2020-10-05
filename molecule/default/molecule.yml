@@ -12,8 +12,6 @@ lint:
 platforms:
   - name: instance
     box: ${VAGRANT_DEFAULT_BOX:-generic/rhel7}
-    groups:
-      - consul_servers
 provisioner:
   name: ansible
   lint:
