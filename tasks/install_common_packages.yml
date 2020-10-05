@@ -1,0 +1,15 @@
+- name: Install Development Tools and sysstat
+  package:
+    name: "{{ packages }}"
+    state: latest
+    update_cache: yes
+  vars:
+    packages:
+    - "@Development tools"
+    - sysstat
+
+- name: Update Packages
+  package:
+    name: '*'
+    state: latest
+  tags: update

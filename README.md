@@ -11,7 +11,39 @@ Any pre-requisites that may not be covered by Ansible itself or the role should 
 Role Variables
 --------------
 
-A description of the settable variables for this role should go here, including any variables that are in defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as well.
+```yaml
+volumes:
+  - device: /dev/<device_name>
+    fstype: <Filesystem type (e.g. xfs)>
+    path: <Mount Point>
+    src: "UUID=<UUID for Volume"
+```
+
+Volumes is a list of dictionaries for formatting and mounting new volumes.
+
+```yaml
+setup_mount_points: true
+```
+
+Determines whether volumes and mount points should be setup using this role. Defaults to True.
+
+```yaml
+reformat_volumes: false
+```
+
+Determines whether this role should reformat all volumes when mounting as part of this role. Defaults to False.
+
+```yaml
+setup_proxy: true
+```
+
+Determines whether the role should setup the HTTP/HTTPS/FTP/NO_PROXY variables globally. Defaults to True.
+
+```yaml
+setup_https: true
+```
+
+Determines whether this role should create a CSR and self-signed cert for the server. CSR will be copied to the Ansible Control Node. Defaults to True.
 
 Dependencies
 ------------
@@ -23,9 +55,11 @@ Example Playbook
 
 Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
 
+```yaml
     - hosts: servers
       roles:
          - { role: username.rolename, x: 42 }
+```
 
 License
 -------

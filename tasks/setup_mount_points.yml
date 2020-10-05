@@ -1,0 +1,19 @@
+---
+- name: Format Volume
+  filesystem:
+    fstype: "{{ item.fstype }}"
+    dev: "{{ item.device }}"
+  with_items: "{{ volumes }}"
+  when: setup_mount_points and reformat_volumes
+
+- name: Mount Volume
+  mount:
+    path: "{{ item.path }}"
+    src: "{{ item.src }}"
+    opts: defaults,nofail
+    fstype: xfs
+    state: mounted
+    boot: yes
+    backup: yes
+  with_items: "{{ volumes }}"
+  when: setup_mount_points

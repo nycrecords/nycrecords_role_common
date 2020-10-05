@@ -8,11 +8,10 @@
 #
 
 function set_proxy() {
-	git config --global http.proxy {{ http_proxy_protocol}}://{{ http_proxy_hostname }}:{{ http_proxy_port }}
-	export http_proxy={{ http_proxy_protocol}}://{{ http_proxy_hostname }}:{{ http_proxy_port }}
-	export https_proxy={{ https_proxy_protocol}}://{{ https_proxy_hostname }}:{{ https_proxy_port }}
+	git config --global http.proxy {{ http_proxy_protocol}}://{{ http_proxy_username}}:{{ http_proxy_password }}@{{ http_proxy_hostname }}:{{ http_proxy_port }}
+	export http_proxy={{ http_proxy_protocol}}://{{ http_proxy_username}}:{{ http_proxy_password }}@{{ http_proxy_hostname }}:{{ http_proxy_port }}
+	export https_proxy={{ https_proxy_protocol}}://{{ https_proxy_username}}:{{ https_proxy_password }}@{{ https_proxy_hostname }}:{{ https_proxy_port }}
 	export no_proxy={{ no_proxy }}
-	sudo subscription-manager config --server.proxy_hostname={{ http_proxy_hostname}} --server.proxy_port={{ http_proxy_port }}
 }
 
 function unset_proxy() {
@@ -20,7 +19,6 @@ function unset_proxy() {
 	unset http_proxy
 	unset https_proxy
 	unset no_proxy
-	sudo subscription-manager config --server.proxy_hostname= --server.proxy_port=
 }
 
 # Set automatically.

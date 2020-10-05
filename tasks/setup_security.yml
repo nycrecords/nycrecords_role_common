@@ -1,0 +1,30 @@
+
+- name: Disable tcp_timestamp response
+  sysctl:
+    name: net.ipv4.tcp_timestamps
+    value: "0"
+    sysctl_set: yes
+
+- name: Disable ipv4.conf.all.accept_redirects
+  sysctl:
+    name: net.ipv4.conf.all.accept_redirects
+    value: "0"
+    sysctl_set: yes
+
+- name: Disable ipv4.conf.default.accept_redirects
+  sysctl:
+    name: net.ipv4.conf.default.accept_redirects
+    value: "0"
+    sysctl_set: yes
+
+- name: Disable ipv4.conf.all.secure_redirects
+  sysctl:
+    name: net.ipv4.conf.all.secure_redirects
+    value: "0"
+    sysctl_set: yes
+
+- name: Disable ipv4.conf.default.secure_redirects
+  sysctl:
+    name: net.ipv4.conf.default.secure_redirects
+    value: "0"
+    sysctl_set: yes
