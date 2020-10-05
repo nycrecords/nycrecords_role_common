@@ -1,4 +1,7 @@
 --- 
+- name: Install Python dependences for HTTPS Setup
+  include_tasks: setup_pip.yml
+
 - name: Ensure Directories Exist for SSL
   file:
     path: "{{ item }}"
@@ -7,21 +10,21 @@
   with_items:
     - /etc/letsencrypt/live/
     - /etc/ssl/private/
-    - /etc/letsencrypt/live/{{ server_hostname }}/
+    - /etc/letsencrypt/live/{{ inventory_hostname }}/
 
 - name: Determine if private key exists
   stat:
-    - path: /etc/letsencrypt/live/{{ server_hostname }}/privkey.pem
+    - path: /etc/letsencrypt/live/{{ inventory_hostname }}/privkey.pem
   register: private_key
 
 - name: Generate an OpenSSL private key.
   openssl_privatekey:
-    path: /etc/letsencrypt/live/{{ server_hostname }}/privkey.pem
+    path: /etc/letsencrypt/live/{{ inventory_hostname }}/privkey.pem
   when: not private_key.stat.exists
 
 - name: Determine if CSR Exists
   stat:
-    - path: /etc/ssl/private/{{ server_hostname }}.csr
+    - path: /etc/ssl/private/{{ inventory_hostname }}.csr
   register: csr
 
 - name: Generate an CSR
@@ -32,22 +35,22 @@
     organization_name: "Department of Records and Information Services"
     organizational_unit_name: "IT - Application Development"
     email_address: "{{ server_admin_email }}"
-    common_name: "{{ server_hostname }}"
+    common_name: "{{ inventory_hostname }}"
     use_common_name_for_san: yes
-    path: /etc/ssl/private/{{ server_hostname }}.csr
-    privatekey_path: /etc/letsencrypt/live/{{ server_hostname }}/privkey.pem
+    path: /etc/ssl/private/{{ inventory_hostname }}.csr
+    privatekey_path: /etc/letsencrypt/live/{{ inventory_hostname }}/privkey.pem
   when: not csr.stat.exists
 
 - name: Determine if certificate exists
   stat:
-    - path: /etc/ssl/private/{{ server_hostname }}/fullchain.pem
+    - path: /etc/ssl/private/{{ inventory_hostname }}/fullchain.pem
   register: certificate
 
 - name: Generate a Self Signed OpenSSL certificate for Web Server.
   openssl_certificate:
-    path: /etc/letsencrypt/live/{{ server_hostname }}/fullchain.pem
-    privatekey_path: /etc/letsencrypt/live/{{ server_hostname }}/privkey.pem
-    csr_path: /etc/ssl/private/{{ server_hostname }}.csr
+    path: /etc/letsencrypt/live/{{ inventory_hostname }}/fullchain.pem
+    privatekey_path: /etc/letsencrypt/live/{{ inventory_hostname }}/privkey.pem
+    csr_path: /etc/ssl/private/{{ inventory_hostname }}.csr
     provider: selfsigned
   when: not certificate.stat.exists
 
@@ -64,5 +67,5 @@
   
 - name: Download CSR
   fetch:
-    src: /etc/ssl/private/{{ server_hostname }}.csr
-    dest: files/https/{{ server_hostname }}/
+    src: /etc/ssl/private/{{ inventory_hostname }}.csr
+    dest: files/https/{{ inventory_hostname }}/

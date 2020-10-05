@@ -45,6 +45,30 @@ setup_https: true
 
 Determines whether this role should create a CSR and self-signed cert for the server. CSR will be copied to the Ansible Control Node. Defaults to True.
 
+```yaml
+ssh_users:
+  - system_user: vagrant
+    github_users:
+      - joelbcastillo
+```
+
+Adds github user ssh keys to authorized keys for the system user. Can specify multiple system users and Github user combinations.
+
+```yaml
+server_admin_email: demo@example.com
+```
+
+The user for the CSR and Certificate created for HTTPS setup.
+
+
+```yaml
+pip_get_pip_version: latest
+pip_version: 20.0.2
+pip_executable: "pip"
+```
+
+These variables are used to install packages for HTTPS Setup. We use Python to generate CSRs, Certs, and Keys.
+
 Dependencies
 ------------
 
