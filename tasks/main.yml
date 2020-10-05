@@ -1,19 +1,41 @@
----
-# tasks file for nycrecords_role_common
-- name: Insert proxy profile configuration
-  template:
-    src: templates/proxy.sh.j2
-    dest: /etc/profile.d/proxy.sh
 
-- name: Login to RedHat Subscription
-  redhat_subscription:
-    state: present
-    username: "{{ rhsub_username }}"
-    password: "{{ rhsub_password }}"
-    auto_attach: true
+- name: Change timezone to "{{ local_timezone }}"
+  timezone:
+    name: "{{ local_timezone }}"
 
-- name: Subscribe to RHSM Repos
-  rhsm_repository:
-    name: "{{ item }}"
-    state: enabled
-  with_items: "{{ repos }}"
+- name: Setup NYCRecords SSH Keys (Github)
+  authorized_key:
+    user: "{{ item.0.system_user }}"
+    key: "https://github.com/{{ item.1 }}.keys"
+  with_subelements:
+    - "{{ ssh_users }}"
+    - github_users
+
+- name: Set Hostname
+  shell:
+    cmd: "hostnamectl set-hostname {{ inventory_hostname_short }}"
+
+- name: Start sysstat on boot
+  systemd:
+    name: sysstat
+    enabled: yes
+    daemon_reload: yes
+    state: started
+
+- name: Setup NYC Records Proxy
+  include_tasks: setup_proxy.yml
+  when: setup_proxy
+
+- name: Install Common Packages
+  include_tasks: install_common_packages.yml
+
+- name: Setup Security Requirements
+  include_tasks: setup_security.yml
+
+- name: Setup Storage Device Mounts
+  include_tasks: setup_mount_points.yml
+  when: setup_mount_points
+
+- name: Setup HTTPS for Nginx
+  include_tasks: setup_https.yml
+  when: setup_https
