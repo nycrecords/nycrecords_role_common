@@ -1,4 +1,8 @@
 
+- name: Setup NYC Records Proxy
+  include_tasks: setup_proxy.yml
+  when: setup_proxy
+
 - name: Change timezone to "{{ local_timezone }}"
   timezone:
     name: "{{ local_timezone }}"
@@ -21,10 +25,6 @@
     enabled: yes
     daemon_reload: yes
     state: started
-
-- name: Setup NYC Records Proxy
-  include_tasks: setup_proxy.yml
-  when: setup_proxy
 
 - name: Install Common Packages
   include_tasks: install_common_packages.yml
