@@ -14,7 +14,7 @@
 
 - name: Determine if private key exists
   stat:
-    - path: /etc/letsencrypt/live/{{ inventory_hostname }}/privkey.pem
+    path: "/etc/letsencrypt/live/{{ inventory_hostname }}/privkey.pem"
   register: private_key
 
 - name: Generate an OpenSSL private key.
@@ -24,7 +24,7 @@
 
 - name: Determine if CSR Exists
   stat:
-    - path: /etc/ssl/private/{{ inventory_hostname }}.csr
+    path: /etc/ssl/private/{{ inventory_hostname }}.csr
   register: csr
 
 - name: Generate an CSR
@@ -43,7 +43,7 @@
 
 - name: Determine if certificate exists
   stat:
-    - path: /etc/ssl/private/{{ inventory_hostname }}/fullchain.pem
+    path: /etc/ssl/private/{{ inventory_hostname }}/fullchain.pem
   register: certificate
 
 - name: Generate a Self Signed OpenSSL certificate for Web Server.

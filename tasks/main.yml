@@ -19,18 +19,18 @@
   shell:
     cmd: "hostnamectl set-hostname {{ inventory_hostname_short }}"
 
+- name: Install Common Packages
+  include_tasks: install_common_packages.yml
+
+- name: Setup Security Requirements
+  include_tasks: setup_security.yml
+
 - name: Start sysstat on boot
   systemd:
     name: sysstat
     enabled: yes
     daemon_reload: yes
     state: started
-
-- name: Install Common Packages
-  include_tasks: install_common_packages.yml
-
-- name: Setup Security Requirements
-  include_tasks: setup_security.yml
 
 - name: Setup Storage Device Mounts
   include_tasks: setup_mount_points.yml
