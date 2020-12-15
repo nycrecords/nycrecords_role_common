@@ -1,4 +1,4 @@
---- 
+---
 - name: Install Python dependences for HTTPS Setup
   include_tasks: setup_pip.yml
 
@@ -14,7 +14,7 @@
 
 - name: Determine if private key exists
   stat:
-    path: "/etc/letsencrypt/live/{{ inventory_hostname }}/privkey.pem"
+    path: /etc/letsencrypt/live/{{ inventory_hostname }}/privkey.pem
   register: private_key
 
 - name: Generate an OpenSSL private key.
@@ -61,10 +61,10 @@
 
 - name: Generate DH parameters
   openssl_dhparam:
-    path: /etc/ssl/dhparams.pem 
+    path: /etc/ssl/dhparams.pem
     size: 1024
   when: not dhparams.stat.exists
-  
+
 - name: Download CSR
   fetch:
     src: /etc/ssl/private/{{ inventory_hostname }}.csr

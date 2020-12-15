@@ -1,4 +1,4 @@
-
+---
 - name: Setup NYC Records Proxy
   include_tasks: setup_proxy.yml
   when: setup_proxy
@@ -15,7 +15,7 @@
     - "{{ ssh_users }}"
     - github_users
 
-- name: Set Hostname
+- name: Set Hostname  # noqa 301 305
   shell:
     cmd: "hostnamectl set-hostname {{ inventory_hostname_short }}"
 
