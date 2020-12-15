@@ -1,0 +1,12 @@
+exclude_paths:
+ - molecule/*
+rulesdir:
+  - ~/ansible-lint-rules/rules/
+skip_list:
+  - '403'
+  - '204'
+use_default_rules: true
+verbosity: 1
+warn_list:  # or 'skip_list' to silence them completely                      │
+  - '401'  # Git checkouts must contain explicit version                     │
+  - experimental  # all rules tagged as experimental

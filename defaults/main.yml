@@ -22,6 +22,7 @@ ssh_users:
 
 # HTTPS Setup
 server_admin_email: demo@example.com
+python_executable: python3
 pip_get_pip_version: latest
 pip_version: 20.0.2
 pip_executable: "pip"

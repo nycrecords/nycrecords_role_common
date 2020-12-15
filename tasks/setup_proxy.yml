@@ -1,11 +1,12 @@
 ---
-# tasks file for nycrecords_role_common
 - name: Insert proxy profile configuration
   template:
     src: templates/proxy.sh.j2
     dest: /etc/profile.d/proxy.sh
+    mode: 0644
 
 - name: Setup proxy for sudo
   template:
     src: files/proxy.j2
     dest: /etc/sudoers.d/proxy
+    mode: 0644
