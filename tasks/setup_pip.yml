@@ -5,8 +5,8 @@
     state: latest
     update_cache: yes
   with_items:
-    - "{{ python_executable }}"
-    - "{{ python_executable }}-pip"
+    - "{{ python_package_name }}"
+    - "{{ python_package_name }}-pip"
 
 
 - name: Ensure python OpenSSL dependencies are installed.
