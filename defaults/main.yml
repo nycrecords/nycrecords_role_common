@@ -4,7 +4,7 @@ setup_mount_points: true
 reformat_volumes: false
 setup_proxy: true
 setup_https: true
-server_hostname: {{ inventory_hostname }}
+server_hostname: "{{ inventory_hostname }}"
 
 # Proxy
 http_proxy_protocol: http
