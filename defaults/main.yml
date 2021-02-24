@@ -7,6 +7,7 @@ setup_https: true
 server_hostname: "{{ inventory_hostname }}"
 
 # Proxy
+http_proxy_method: basic_auth
 http_proxy_protocol: http
 http_proxy_hostname:
 http_proxy_port: 80

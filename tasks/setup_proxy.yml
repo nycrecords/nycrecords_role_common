@@ -10,3 +10,14 @@
     src: files/proxy.j2
     dest: /etc/sudoers.d/proxy
     mode: 0644
+
+- name: Setup proxy for Yum
+  blockinfile:
+    path: /etc/yum.conf
+    backup: yes
+    marker: "### {mark} ANSIBLE MANAGED - PROXY CONFIGURATION ###"
+    block: |
+      proxy={{ http_proxy_protocol }}://{{ http_proxy_hostname }}:{{ http_proxy_port }}
+      proxy_username={{ http_proxy_username }}
+      proxy_password={{ http_proxy_password }}
+      proxy_auth_method={{ http_proxy_auth_method }}
