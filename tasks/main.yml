@@ -13,7 +13,10 @@
     key: "https://github.com/{{ item.1 }}.keys"
   with_subelements:
     - "{{ ssh_users }}"
-    - github_users
+    - github_users  
+  environment:
+    http_proxy: "{{ http_proxy_protocol}}://{{ http_proxy_username}}:{{ http_proxy_password }}@{{ http_proxy_hostname }}:{{ http_proxy_port }}"
+    https_proxy: "{{ http_proxy_protocol}}://{{ http_proxy_username}}:{{ http_proxy_password }}@{{ http_proxy_hostname }}:{{ http_proxy_port }}"
 
 - name: Set Hostname  # noqa 301 305
   shell:
