@@ -16,3 +16,6 @@
     virtualenv: /tmp/https_setup
     virtualenv_site_packages: yes
     virtualenv_command: "{{ python_executable }} -m venv"
+  environment:
+    http_proxy: "{{ http_proxy_protocol}}://{{ http_proxy_username}}:{{ http_proxy_password }}@{{ http_proxy_hostname }}:{{ http_proxy_port }}"
+    https_proxy: "{{ http_proxy_protocol}}://{{ http_proxy_username}}:{{ http_proxy_password }}@{{ http_proxy_hostname }}:{{ http_proxy_port }}"

@@ -15,6 +15,7 @@ https_proxy_protocol: https
 https_proxy_hostname:
 https_proxy_port: 443
 no_proxy: "localhost,127.0.0.1,::1"
+set_yum_proxy: false
 
 # SSH Users
 ssh_users:
