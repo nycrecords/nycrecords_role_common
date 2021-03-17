@@ -8,11 +8,11 @@
 #
 
 function set_proxy() {
-	git config --global http.proxy {{ http_proxy_protocol}}://{{ http_proxy_username}}:{{ http_proxy_password }}@{{ http_proxy_hostname }}:{{ http_proxy_port }}
-	export HTTP_PROXY={{ http_proxy_protocol}}://{{ http_proxy_username}}:{{ http_proxy_password }}@{{ http_proxy_hostname }}:{{ http_proxy_port }}
-	export http_proxy={{ http_proxy_protocol}}://{{ http_proxy_username}}:{{ http_proxy_password }}@{{ http_proxy_hostname }}:{{ http_proxy_port }}
-	export HTTPS_PROXY={{ https_proxy_protocol}}://{{ https_proxy_username}}:{{ https_proxy_password }}@{{ https_proxy_hostname }}:{{ https_proxy_port }}
-	export http_proxy={{ http_proxy_protocol}}://{{ http_proxy_username}}:{{ http_proxy_password }}@{{ http_proxy_hostname }}:{{ http_proxy_port }}
+	git config --global http.proxy {{ http_proxy_protocol}}://{% if http_proxy_username and http_proxy_password %}{{ http_proxy_username}}:{{ http_proxy_password }}@{% endif %}{{ http_proxy_hostname }}:{{ http_proxy_port }}
+	export HTTP_PROXY={{ http_proxy_protocol}}://{% if http_proxy_username and http_proxy_password %}{{ http_proxy_username}}:{{ http_proxy_password }}@{% endif %}{{ http_proxy_hostname }}:{{ http_proxy_port }}
+	export http_proxy={{ http_proxy_protocol}}://{% if http_proxy_username and http_proxy_password %}{{ http_proxy_username}}:{{ http_proxy_password }}@{% endif %}{{ http_proxy_hostname }}:{{ http_proxy_port }}
+	export HTTPS_PROXY={{ https_proxy_protocol}}://{% if https_proxy_username and https_proxy_password %}{{ https_proxy_username}}:{{ https_proxy_password }}@{% endif %}{{ https_proxy_hostname }}:{{ https_proxy_port }}
+	export http_proxy={{ http_proxy_protocol}}://{% if https_proxy_username and https_proxy_password %}{{ https_proxy_username}}:{{ https_proxy_password }}@{% endif %}{{ http_proxy_hostname }}:{{ http_proxy_port }}
 	export NO_PROXY={{ no_proxy }} 
 	export no_proxy={{ no_proxy }}
 }

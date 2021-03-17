@@ -11,6 +11,10 @@
     dest: /etc/sudoers.d/proxy
     mode: 0644
 
+- name: Setup CNTLM
+  include_role:
+    name: nycrecords.cntlm
+
 - name: Setup proxy for Yum
   blockinfile:
     path: /etc/yum.conf
